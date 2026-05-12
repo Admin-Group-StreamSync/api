@@ -1,21 +1,11 @@
 databases:
-  - name: movies-db-1
-    databaseName: movies
-    user: movies
-    plan: free
-
-  - name: movies-db-2
-    databaseName: movies
-    user: movies
-    plan: free
-
-  - name: movies-db-3
+  - name: movies-db
     databaseName: movies
     user: movies
     plan: free
 
 services:
-  # Instancia 1 -> migración 01.sql
+  # Instancia 1 -> schema01
   - type: web
     name: movies-api-1
     runtime: node
@@ -29,26 +19,26 @@ services:
         value: "01"
       - key: DB_USER
         fromDatabase:
-          name: movies-db-1
+          name: movies-db
           property: user
       - key: DB_HOST
         fromDatabase:
-          name: movies-db-1
+          name: movies-db
           property: host
       - key: DB_NAME
         fromDatabase:
-          name: movies-db-1
+          name: movies-db
           property: database
       - key: DB_PASSWORD
         fromDatabase:
-          name: movies-db-1
+          name: movies-db
           property: password
       - key: DB_PORT
         fromDatabase:
-          name: movies-db-1
+          name: movies-db
           property: port
 
-  # Instancia 2 -> migración 02.sql
+  # Instancia 2 -> schema02
   - type: web
     name: movies-api-2
     runtime: node
@@ -62,26 +52,26 @@ services:
         value: "02"
       - key: DB_USER
         fromDatabase:
-          name: movies-db-2
+          name: movies-db
           property: user
       - key: DB_HOST
         fromDatabase:
-          name: movies-db-2
+          name: movies-db
           property: host
       - key: DB_NAME
         fromDatabase:
-          name: movies-db-2
+          name: movies-db
           property: database
       - key: DB_PASSWORD
         fromDatabase:
-          name: movies-db-2
+          name: movies-db
           property: password
       - key: DB_PORT
         fromDatabase:
-          name: movies-db-2
+          name: movies-db
           property: port
 
-  # Instancia 3 -> migración 03.sql
+  # Instancia 3 -> schema03
   - type: web
     name: movies-api-3
     runtime: node
@@ -95,21 +85,21 @@ services:
         value: "03"
       - key: DB_USER
         fromDatabase:
-          name: movies-db-3
+          name: movies-db
           property: user
       - key: DB_HOST
         fromDatabase:
-          name: movies-db-3
+          name: movies-db
           property: host
       - key: DB_NAME
         fromDatabase:
-          name: movies-db-3
+          name: movies-db
           property: database
       - key: DB_PASSWORD
         fromDatabase:
-          name: movies-db-3
+          name: movies-db
           property: password
       - key: DB_PORT
         fromDatabase:
-          name: movies-db-3
+          name: movies-db
           property: port
