@@ -1,7 +1,7 @@
 services:
   movies-api:
     build:
-      context: api
+      context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
@@ -29,7 +29,7 @@ services:
 
   movies-api-2:
     build:
-      context: api
+      context: .
       dockerfile: Dockerfile
     ports:
       - "8081:8080"
@@ -57,7 +57,7 @@ services:
 
   movies-api-3:
     build:
-      context: api
+      context: .
       dockerfile: Dockerfile
     ports:
       - "8082:8080"

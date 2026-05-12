@@ -10,5 +10,5 @@ COPY . /app
 
 EXPOSE 8080
 
-CMD ["sh", "server.js"]
+CMD ["node", "server.js"]
 

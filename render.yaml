@@ -1,0 +1,115 @@
+databases:
+  - name: movies-db-1
+    databaseName: movies
+    user: movies
+    plan: free
+
+  - name: movies-db-2
+    databaseName: movies
+    user: movies
+    plan: free
+
+  - name: movies-db-3
+    databaseName: movies
+    user: movies
+    plan: free
+
+services:
+  # Instancia 1 -> migración 01.sql
+  - type: web
+    name: movies-api-1
+    runtime: node
+    plan: free
+    buildCommand: npm install && node migrate.js
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MIGRATION_FILE
+        value: "01"
+      - key: DB_USER
+        fromDatabase:
+          name: movies-db-1
+          property: user
+      - key: DB_HOST
+        fromDatabase:
+          name: movies-db-1
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: movies-db-1
+          property: database
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: movies-db-1
+          property: password
+      - key: DB_PORT
+        fromDatabase:
+          name: movies-db-1
+          property: port
+
+  # Instancia 2 -> migración 02.sql
+  - type: web
+    name: movies-api-2
+    runtime: node
+    plan: free
+    buildCommand: npm install && node migrate.js
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MIGRATION_FILE
+        value: "02"
+      - key: DB_USER
+        fromDatabase:
+          name: movies-db-2
+          property: user
+      - key: DB_HOST
+        fromDatabase:
+          name: movies-db-2
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: movies-db-2
+          property: database
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: movies-db-2
+          property: password
+      - key: DB_PORT
+        fromDatabase:
+          name: movies-db-2
+          property: port
+
+  # Instancia 3 -> migración 03.sql
+  - type: web
+    name: movies-api-3
+    runtime: node
+    plan: free
+    buildCommand: npm install && node migrate.js
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MIGRATION_FILE
+        value: "03"
+      - key: DB_USER
+        fromDatabase:
+          name: movies-db-3
+          property: user
+      - key: DB_HOST
+        fromDatabase:
+          name: movies-db-3
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: movies-db-3
+          property: database
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: movies-db-3
+          property: password
+      - key: DB_PORT
+        fromDatabase:
+          name: movies-db-3
+          property: port
