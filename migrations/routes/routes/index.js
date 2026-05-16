@@ -1,52 +1,37 @@
 const express = require("express");
 const router = express.Router();
-const Repository = require("../repositories");
 const db = require("../db");
+const Repository = require("../repositories");
 
 const repository = new Repository(db);
 
-router.get("/directors", async (req, res) => {
-    return res.json(await repository.getAllDirectors());
+router.get('/movies', async (req, res) => {
+    try {
+        const filters = Object.keys(req.query).length ? req.query : undefined;
+        return res.json(await repository.getAllMovies(filters));
+    } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+router.get('/series', async (req, res) => {
+    try {
+        const filters = Object.keys(req.query).length ? req.query : undefined;
+        return res.json(await repository.getAllSeries(filters));
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+router.get('/directors', async (req, res) => {
+    try { return res.json(await repository.getAllDirectors()); }
+    catch (err) { res.status(500).json({ error: err.message }); }
+});
 
 router.get('/genres', async (req, res) => {
-    return res.json(await repository.getAllGenres());
-})
+    try { return res.json(await repository.getAllGenres()); }
+    catch (err) { res.status(500).json({ error: err.message }); }
+});
 
 router.get('/age-ratings', async (req, res) => {
-    return res.json(await repository.getAllAgeRatings());
-})
-
-router.get('/movies', async (req, res) => {
-
-    if (Object.keys(req.query).length === 0) {
-        return res.json(await repository.getAllMovies());
-    }
-    const filters = {
-        genre: req.query.genre,
-        director: req.query.director,
-        age_rating: req.query.age_rating,
-        id: req.query.id,
-        title: req.query.title,
-        synopsis: req.query.synopsis
-    }
-    return res.json(await repository.getAllMovies(filters));
-})
-
-router.get('/series', async (req, res) => {
-    if (Object.keys(req.query).length === 0) {
-        return res.json(await repository.getAllSeries());
-    }
-    const filters = {
-        genre: req.query.genre,
-        director: req.query.director,
-        age_rating: req.query.age_rating,
-        id: req.query.id,
-        title: req.query.title,
-        synopsis: req.query.synopsis
-    }
-    return res.json(await repository.getAllSeries(filters));
-})
+    try { return res.json(await repository.getAllAgeRatings()); }
+    catch (err) { res.status(500).json({ error: err.message }); }
+});
 
 module.exports = router;
