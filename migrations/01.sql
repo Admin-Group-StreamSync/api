@@ -1,3 +1,4 @@
+SET search_path TO schema01;
 -- 1. Tabla de países
 CREATE TABLE countries (
     id SERIAL PRIMARY KEY,
