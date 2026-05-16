@@ -1,27 +1,17 @@
-const { getDb } = require('../db');
+const db = require('../db');
 const Repository = require("../repositories");
 
 async function apiKeyMiddleware(req, res, next) {
     try {
         const apiKey = req.header('x-api-key');
-
         if (!apiKey) {
             return res.status(401).json({ error: 'API key required' });
         }
-
-        // Extraemos la versión de la URL para validar la api key
-        // contra la base de datos correcta
-        const match = req.path.match(/^\/api\/(\d+)\//);
-        const version = match ? parseInt(match[1], 10) : 1;
-
-        const db = getDb(version);
         const repository = new Repository(db);
         const rows = await repository.checkApiKey(apiKey);
-
         if (!rows || rows.length === 0) {
             return res.status(403).json({ error: 'API key inválida o expirada' });
         }
-
         req.apiKey = rows[0];
         next();
     } catch (error) {
