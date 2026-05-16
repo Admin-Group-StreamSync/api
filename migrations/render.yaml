@@ -1,0 +1,105 @@
+databases:
+  - name: movies-db
+    databaseName: movies
+    user: movies
+    plan: free
+
+services:
+  # Instancia 1 -> schema01
+  - type: web
+    name: movies-api-1
+    runtime: node
+    plan: free
+    buildCommand: npm install && node migrate.js
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MIGRATION_FILE
+        value: "01"
+      - key: DB_USER
+        fromDatabase:
+          name: movies-db
+          property: user
+      - key: DB_HOST
+        fromDatabase:
+          name: movies-db
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: movies-db
+          property: database
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: movies-db
+          property: password
+      - key: DB_PORT
+        fromDatabase:
+          name: movies-db
+          property: port
+
+  # Instancia 2 -> schema02
+  - type: web
+    name: movies-api-2
+    runtime: node
+    plan: free
+    buildCommand: npm install && node migrate.js
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MIGRATION_FILE
+        value: "02"
+      - key: DB_USER
+        fromDatabase:
+          name: movies-db
+          property: user
+      - key: DB_HOST
+        fromDatabase:
+          name: movies-db
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: movies-db
+          property: database
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: movies-db
+          property: password
+      - key: DB_PORT
+        fromDatabase:
+          name: movies-db
+          property: port
+
+  # Instancia 3 -> schema03
+  - type: web
+    name: movies-api-3
+    runtime: node
+    plan: free
+    buildCommand: npm install && node migrate.js
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MIGRATION_FILE
+        value: "03"
+      - key: DB_USER
+        fromDatabase:
+          name: movies-db
+          property: user
+      - key: DB_HOST
+        fromDatabase:
+          name: movies-db
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: movies-db
+          property: database
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: movies-db
+          property: password
+      - key: DB_PORT
+        fromDatabase:
+          name: movies-db
+          property: port
